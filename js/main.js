@@ -13,7 +13,23 @@ getRandomInt(0,100);
 
 //Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
 
-function getRandomFloat(min, max, float) {
-
+function getRandomFloat(min, max, valueAfterComma) {
+  if (min < 0) {
+    alert('Введите число больше либо равное нулю');
+    return;
+  }  
+  if (max <=0) {
+    alert('Введите число больше нуля');
+    return;
+  }
+  if (max < min) {
+    alert('Максимальное число не может быть меньше минимального');
+    return;
+  }
+  let result = Math.random() * (max - min) + min ;
+    result = result.toFixed(valueAfterComma);
     
+    console.log(result)
+    return result;
 }
+getRandomFloat(0,5,10)
