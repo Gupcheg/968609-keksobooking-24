@@ -1,35 +1,35 @@
 //Функция, возвращающая случайное целое число из переданного диапазона
+function swapValue(min, max) {
+  if (min > max) {
+    const temp = min;
+    min = max;
+    max = temp;
+  }
+}
+
 
 function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    
-    if (min, max < 0) {
-        alert('Введите число больше нуля')
-    }
-    return Math.floor(Math.random() * (max - min)) + min; 
-  } 
-getRandomInt(0,100);
+  min = Math.abs(Math.floor(min));
+  max = Math.abs(Math.floor(max));
+
+  swapValue(min, max);
+
+  const result = Math.floor(Math.random() * (max - min + 1)) + min;
+  return result;
+}
+getRandomInt(0, 100);
 
 //Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
 
 function getRandomFloat(min, max, valueAfterComma) {
-  if (min < 0) {
-    alert('Введите число больше либо равное нулю');
-    return;
-  }  
-  if (max <=0) {
-    alert('Введите число больше нуля');
-    return;
-  }
-  if (max < min) {
-    alert('Максимальное число не может быть меньше минимального');
-    return;
-  }
-  let result = Math.random() * (max - min) + min ;
-    result = result.toFixed(valueAfterComma);
-    
-    console.log(result)
-    return result;
+
+  min = Math.abs(min);
+  max = Math.abs(max);
+
+  swapValue(min, max);
+
+  const result = Math.random() * (max - min + 1) + min;
+  return result.toFixed(valueAfterComma);
 }
-getRandomFloat(0,5,10)
+
+getRandomFloat(0, 7, 5);
