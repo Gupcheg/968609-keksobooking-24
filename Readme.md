@@ -2,9 +2,7 @@
 
 * Студент: [Павел Губарев](https://up.htmlacademy.ru/javascript/24/user/968609).
 * Наставник: [Роберт Нафиков](https://htmlacademy.ru/profile/id1774325)
-
 ---
-
 _Не удаляйте и не изменяйте самовольно файлы и папки:_
 _`.editorconfig`, `.eslintrc`, `.gitattributes`, `.gitignore`, `package-lock.json`, `package.json`., `.github`_
 

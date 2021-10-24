@@ -5,7 +5,7 @@
   "description": "Личный проект «Кексобукинг» от HTML Academy",
   "repository": {
     "type": "git",
-    "url": "git@github.com:htmlacademy-javascript/968609-keksobooking-24.git"
+    "url": "git+ssh://git@github.com/htmlacademy-javascript/968609-keksobooking-24.git"
   },
   "bugs": {
     "url": "https://github.com/htmlacademy-javascript/968609-keksobooking-24/issues"
@@ -13,7 +13,14 @@
   "devDependencies": {
     "browser-sync": "2.26.14",
     "eslint": "7.18.0",
-    "eslint-config-htmlacademy": "4.0.0"
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-htmlacademy": "4.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-html": "^6.2.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "2.4.1"
   },
   "license": "MIT",
   "dependencies": {},
@@ -24,5 +31,9 @@
   "engines": {
     "node": "14.x",
     "npm": "6.x"
-  }
+  },
+  "homepage": "https://github.com/htmlacademy-javascript/968609-keksobooking-24#readme",
+  "main": "index.js",
+  "keywords": [],
+  "author": ""
 }
