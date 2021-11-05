@@ -74,7 +74,6 @@ const getRandomArr = (arr) => {
 };
 
 function getNumberStr(number) {
-
   if (number < 10) {
     return `0${number}`;
   }
@@ -107,7 +106,7 @@ function UserAdd(avatarUrl, description) {
     lng: getRandomFloat(139.7, 139.8, 5),
   };
   this.offer = {
-    type: houseTypes[getRandomFloat(0, 4)],
+    type: houseTypes[getRandomInt(0, 4)],
     address: `${this.location.lat}, ${this.location.lng}`,
     price: getRandomInt(2000, 200000),
     rooms: getRandomInt(1, 5),
@@ -124,6 +123,7 @@ function UserAdd(avatarUrl, description) {
 function getAuthors() {
   const autorIDs = getUnicNumbers(10);
   const authors = [];
+
   autorIDs.map((id) => {
     const description = getDescription(Number(id));
     const avatarUrl = `img/avatars/user${id}`;
