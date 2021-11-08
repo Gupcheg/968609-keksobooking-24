@@ -3,6 +3,9 @@ import {
   getRandomFloat,
   getRandomArr
 } from './util.js';
+import {
+  getUnicNumbers
+} from './util.js';
 
 const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const houseTypes = ['bungalow', 'flat', 'hotel', 'house', 'palace'];
@@ -12,6 +15,22 @@ const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
+// Описание помещений
+const DESCRIPTIONS = [
+  'Хорошая квартира с приятным видом из окна',
+  'Комфортная квартира с приятным дизайном',
+  'Уютная, тихая, скромная квартира',
+  'Милая, уютная квартира с привлекательным видом',
+  'Комфортабельная квартира',
+  'Хорошая квартира с приятным видом из окна',
+  'Комфортная квартира с приятным дизайном',
+  'Уютная, тихая, скромная квартира',
+  'Милая, уютная квартира с привлекательным видом',
+  'Комфортабельная квартира',
+];
+
+const getDescription = (index) => DESCRIPTIONS[index];
+
 
 export function createUser(avatarUrl, description) {
   return {
@@ -35,4 +54,20 @@ export function createUser(avatarUrl, description) {
       photos: getRandomArr(photos),
     },
   };
+}
+
+
+export function getAuthors() {
+  const autorIDs = getUnicNumbers(10);
+  const authors = [];
+
+  autorIDs.map((id) => {
+    const description = getDescription(Number(id));
+    const avatarUrl = `img/avatars/user${id}`;
+    const author = createUser(avatarUrl, description);
+
+    authors.push(author);
+    createUser(autorIDs);
+  });
+  return authors;
 }
