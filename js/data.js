@@ -15,6 +15,10 @@ const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
+const location = {
+  lat: getRandomFloat(35.65, 35.7, 5),
+  lng: getRandomFloat(139.7, 139.8, 5),
+};
 // Описание помещений
 const DESCRIPTIONS = [
   'Хорошая квартира с приятным видом из окна',
@@ -29,7 +33,7 @@ const DESCRIPTIONS = [
   'Комфортабельная квартира',
 ];
 
-const getDescription = (index) => DESCRIPTIONS[index];
+export const getDescription = (index) => DESCRIPTIONS[index];
 
 
 export function createUser(avatarUrl, description) {
@@ -37,13 +41,10 @@ export function createUser(avatarUrl, description) {
     author: {
       avatar: avatarUrl,
     },
-    location: {
-      lat: getRandomFloat(35.65, 35.7, 5),
-      lng: getRandomFloat(139.7, 139.8, 5),
-    },
+    location: location,
     offer: {
       type: houseTypes[getRandomInt(0, 4)],
-      address: `${this.location.lat}, ${this.location.lng}`,
+      address: `${location.lat}, ${location.lng}`,
       price: getRandomInt(2000, 200000),
       rooms: getRandomInt(1, 5),
       guests: getRandomInt(1, 6),
