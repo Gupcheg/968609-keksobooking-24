@@ -61,7 +61,7 @@ export function getUnicNumbers(count) {
   const mass = [];
 
   while (mass.length < count) {
-    const random = getNumberStr(getRandomInt(0, count));
+    const random = getNumberStr(getRandomInt(1, count));
 
     if (!mass.includes(random)) {
       mass.push(random);
@@ -69,4 +69,10 @@ export function getUnicNumbers(count) {
   }
 
   return mass;
+}
+
+
+export function arrayRandElement(arr) {
+  const rand = Math.floor(Math.random() * arr.length);
+  return arr[rand];
 }
