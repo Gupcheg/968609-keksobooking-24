@@ -8,9 +8,6 @@ import {
   getUnicNumbers
 } from './util.js';
 
-// import {
-//   renderCards
-// } from './generate.js';
 
 const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const houseTypes = ['bungalow', 'flat', 'hotel', 'house', 'palace'];

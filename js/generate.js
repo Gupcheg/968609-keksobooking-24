@@ -1,7 +1,3 @@
-// import {
-//   bulki
-// } from './data.js';
-
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 const mapCanvas = document.querySelector('#map-canvas');
 
@@ -30,22 +26,20 @@ const renderCard = (card) => {
   cardPhotos.innerHTML = '';
 
   const pictures = card.offer.photos.map((photo) => {
-
     const picture = document.createElement('img');
+
     picture.src = photo;
     picture.alt = 'Фото жилья';
     picture.width = '45';
     picture.height = '40';
     picture.classList.add('popup__photo');
     return picture;
-
   });
   cardPhotos.append(...pictures);
   mapCanvas.appendChild(cardElem);
 };
 
 const renderCards = (cards) => {
-
   cards.forEach((item) => {
     renderCard(item);
   });
