@@ -1,11 +1,16 @@
 import {
   getRandomInt,
   getRandomFloat,
-  getRandomArr
+  getRandomArr,
+  arrayRandElement
 } from './util.js';
 import {
   getUnicNumbers
 } from './util.js';
+
+// import {
+//   renderCards
+// } from './generate.js';
 
 const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const houseTypes = ['bungalow', 'flat', 'hotel', 'house', 'palace'];
@@ -15,6 +20,19 @@ const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
+const titles = [
+  'Сдаётся жильё',
+  'Комфортное жилище',
+  'Уютное жильё',
+  'Прекрасные апартаменты',
+  'Приятная квартира',
+  'Сдаётся жильё',
+  'Комфортное жилище',
+  'Уютное жильё',
+  'Прекрасные апартаменты',
+  'Приятная квартира',
+];
+
 const location = {
   lat: getRandomFloat(35.65, 35.7, 5),
   lng: getRandomFloat(139.7, 139.8, 5),
@@ -43,6 +61,7 @@ export function createUser(avatarUrl, description) {
     },
     location: location,
     offer: {
+      title: arrayRandElement(titles),
       type: houseTypes[getRandomInt(0, 4)],
       address: `${location.lat}, ${location.lng}`,
       price: getRandomInt(2000, 200000),
@@ -64,11 +83,14 @@ export function getAuthors() {
 
   autorIDs.map((id) => {
     const description = getDescription(Number(id));
-    const avatarUrl = `img/avatars/user${id}`;
-    const author = createUser(avatarUrl, description);
+    const avatarUrl = `img/avatars/user${id}.png`;
+    const titlesAuthors = arrayRandElement(titles);
+    const author = createUser(avatarUrl, description, titlesAuthors);
 
     authors.push(author);
     createUser(autorIDs);
   });
   return authors;
 }
+
+export const bulki = getAuthors();

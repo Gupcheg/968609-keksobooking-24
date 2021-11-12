@@ -2,4 +2,13 @@ import {
   getAuthors
 } from './data.js';
 
-getAuthors;
+import {
+  renderCards
+} from './generate.js';
+
+import {
+  bulki
+} from './data.js';
+
+renderCards([bulki[0]]);
+getAuthors();
