@@ -6,9 +6,7 @@ import {
   renderCards
 } from './generate.js';
 
-import {
-  changeForm
-} from './form.js';
+import './form.js';
 
 import {
   bulki
@@ -16,4 +14,3 @@ import {
 
 renderCards([bulki[0]]);
 getAuthors();
-changeForm(true);
