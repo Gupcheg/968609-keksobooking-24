@@ -8,7 +8,6 @@ import {
   getUnicNumbers
 } from './util.js';
 
-
 const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const houseTypes = ['bungalow', 'flat', 'hotel', 'house', 'palace'];
 const checkin = ['12:00', '13:00', '14:00'];
