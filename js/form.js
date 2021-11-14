@@ -9,6 +9,14 @@ const roomsCapacity = {
   '100': ['0'],
 };
 
+const typesMinPrice = {
+  'bungalow': '0',
+  'flat': '1000',
+  'hotel': '3000',
+  'house': '5000',
+  'palace': '10000',
+};
+
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const activeElements = document.querySelectorAll('.ad-form fieldset, .map__filters fieldset, .map__filter');
@@ -16,6 +24,10 @@ const titleInput = adForm.querySelector('#title');
 const priceInput = adForm.querySelector('#price');
 const roomsNumberSelect = adForm.querySelector('#room_number');
 const capacityOptions = adForm.querySelectorAll('#capacity option');
+const typesSelect = adForm.querySelector('#type');
+const timeinSelect = adForm.querySelector('#timein');
+const timeoutSelect = adForm.querySelector('#timeout');
+
 
 function changeForm(isDisabled = true) {
   if (isDisabled) {
@@ -50,12 +62,20 @@ priceInput.addEventListener('input', () => {
 
   if (priceValue > MAX_PRICE) {
     priceInput.setCustomValidity(`Цена не может превышать ${ MAX_PRICE } руб.`);
+  } else if (priceValue < priceInput.min) {
+    priceInput.setCustomValidity(`Цена не может быть меньше ${ priceInput.min } руб.`);
   } else {
     priceInput.setCustomValidity('');
   }
 
   priceInput.reportValidity();
 });
+
+typesSelect.addEventListener('change', () => {
+  priceInput.min = typesMinPrice[typesSelect.value];
+  priceInput.placeholder = priceInput.min;
+});
+
 
 const changeSelected = () => {
   for (const capacityOption of capacityOptions) {
@@ -72,8 +92,12 @@ const onRoomsNumberChange = () => {
   changeSelected();
 };
 
-onRoomsNumberChange();
 roomsNumberSelect.addEventListener('change', onRoomsNumberChange);
+
+timeinSelect.addEventListener('change', () => timeoutSelect.value = timeinSelect.value);
+timeoutSelect.addEventListener('change', () => timeinSelect.value = timeoutSelect.value);
+
+onRoomsNumberChange();
 
 export {
   changeForm
