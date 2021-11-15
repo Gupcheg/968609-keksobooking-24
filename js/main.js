@@ -1,16 +1,20 @@
 import {
-  getAuthors
-} from './data.js';
+  changeForm
+} from './form.js';
 
 import {
-  renderCards
-} from './generate.js';
-
-import './form.js';
+  addMap,
+  addMainPin,
+  makeMarkers
+} from './map.js';
 
 import {
-  bulki
+  createAuthors
 } from './data.js';
 
-renderCards([bulki[0]]);
-getAuthors();
+addMap();
+addMainPin();
+changeForm();
+
+const pins = createAuthors;
+makeMarkers(pins);
