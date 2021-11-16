@@ -78,8 +78,8 @@ export function getAuthors() {
   const authors = [];
   authorIDs.map((id) => {
     const location = {
-      lat: getRandomFloat(35.65000, 35.70000, 5),
-      lng: getRandomFloat(139.70000, 139.80000, 5),
+      lat: getRandomFloat(35.65, 35.70, 5),
+      lng: getRandomFloat(139.70, 139.80, 5),
     };
     const description = getDescription(Number(id));
     const avatarUrl = `img/avatars/user${id}.png`;

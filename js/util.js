@@ -1,4 +1,9 @@
 //Функция, возвращающая случайное целое число из переданного диапазона
+const ALERT_SHOW_TIME = 5000;
+
+const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+
 export function swapValue(min, max) {
   if (min > max) {
     const temp = min;
@@ -27,8 +32,6 @@ export const getRandomFloat = (min, max, numAfterPoint = 1) => {
 
   return +((Math.random() * (max - min)) + min).toFixed(numAfterPoint);
 };
-
-getRandomFloat(0, 7, 5);
 
 export const getRandomArr = (arr) => {
   const result = new Array(Math.floor(Math.random() * arr.length));
@@ -70,3 +73,57 @@ export function arrayRandElement(arr) {
   const rand = Math.floor(Math.random() * arr.length);
   return arr[rand];
 }
+
+
+export const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '18px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const hideMessage = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+  }
+  document.body.lastChild.remove();
+  document.removeEventListener('click', hideMessage);
+  document.removeEventListener('keydown', hideMessage);
+  document.querySelector('.error__button').removeEventListener('click', hideMessage);
+};
+
+const addListenersOnMessage = () => {
+  document.addEventListener('click', hideMessage);
+  document.addEventListener('keydown', hideMessage);
+};
+
+export const showSuccessMessage = () => {
+  const message = successMessageTemplate.cloneNode(true);
+  addListenersOnMessage();
+  document.body.append(message);
+};
+
+export const showErrorMessage = () => {
+  const message = errorMessageTemplate.cloneNode(true);
+  addListenersOnMessage();
+
+  const errorButton = message.querySelector('.error__button');
+  errorButton.addEventListener('click', hideMessage);
+  document.body.append(message);
+};
