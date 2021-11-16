@@ -1,6 +1,15 @@
 import {
-  changeForm
+  changeForm,
+  setFormDefault,
+  setFormSubmit
 } from './form.js';
+
+import {
+  getData
+} from './api.js';
+import {
+  showAlert
+} from './util.js';
 
 import {
   addMap,
@@ -8,13 +17,10 @@ import {
   makeMarkers
 } from './map.js';
 
-import {
-  createAuthors
-} from './data.js';
 
 addMap();
 addMainPin();
 changeForm();
 
-const pins = createAuthors;
-makeMarkers(pins);
+getData(makeMarkers, showAlert);
+setFormSubmit(setFormDefault);
