@@ -21,16 +21,12 @@ getRandomInt(0, 100);
 
 
 //Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
-export function getRandomFloat(min, max, valueAfterComma) {
+export const getRandomFloat = (min, max, numAfterPoint = 1) => {
+  min = Math.min(Math.abs(min), Math.abs(max));
+  max = Math.max(Math.abs(min), Math.abs(max));
 
-  min = Math.abs(min);
-  max = Math.abs(max);
-
-  swapValue(min, max);
-
-  const result = Math.random() * (max - min + 1) + min;
-  return result.toFixed(valueAfterComma);
-}
+  return +((Math.random() * (max - min)) + min).toFixed(numAfterPoint);
+};
 
 getRandomFloat(0, 7, 5);
 

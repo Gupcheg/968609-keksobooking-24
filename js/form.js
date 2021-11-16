@@ -19,7 +19,7 @@ const typesMinPrice = {
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
-const activeElements = document.querySelectorAll('.ad-form fieldset, .map__filters fieldset, .map__filter');
+const activeElements = document.querySelectorAll('.ad-form fieldset, .map__filter, .map__filters fieldset');
 const titleInput = adForm.querySelector('#title');
 const priceInput = adForm.querySelector('#price');
 const roomsNumberSelect = adForm.querySelector('#room_number');
@@ -28,8 +28,7 @@ const typesSelect = adForm.querySelector('#type');
 const timeinSelect = adForm.querySelector('#timein');
 const timeoutSelect = adForm.querySelector('#timeout');
 
-
-function changeForm(isDisabled = true) {
+const changeForm = (isDisabled = false) => {
   if (isDisabled) {
     adForm.classList.add('ad-form--disabled');
     mapFilters.classList.add('map__filters--disabled');
@@ -41,7 +40,23 @@ function changeForm(isDisabled = true) {
   activeElements.forEach((activeElement) => {
     activeElement.disabled = isDisabled;
   });
-}
+};
+
+const changeSelected = () => {
+  for (const capacityOption of capacityOptions) {
+    if (!capacityOption.disabled) {
+      capacityOption.selected = true;
+      return;
+    }
+  }
+};
+
+const onRoomsNumberChange = () => {
+  capacityOptions.forEach((capacityOption) => {
+    capacityOption.disabled = !roomsCapacity[roomsNumberSelect.value].includes(capacityOption.value);
+  });
+  changeSelected();
+};
 
 titleInput.addEventListener('input', () => {
   const valueLength = titleInput.value.length;
@@ -76,24 +91,7 @@ typesSelect.addEventListener('change', () => {
   priceInput.placeholder = priceInput.min;
 });
 
-
-const changeSelected = () => {
-  for (const capacityOption of capacityOptions) {
-    if (!capacityOption.disabled) {
-      capacityOption.selected = true;
-    }
-  }
-};
-
-const onRoomsNumberChange = () => {
-  capacityOptions.forEach((capacityOption) => {
-    capacityOption.disabled = !roomsCapacity[roomsNumberSelect.value].includes(capacityOption.value);
-  });
-  changeSelected();
-};
-
 roomsNumberSelect.addEventListener('change', onRoomsNumberChange);
-
 timeinSelect.addEventListener('change', () => timeoutSelect.value = timeinSelect.value);
 timeoutSelect.addEventListener('change', () => timeinSelect.value = timeoutSelect.value);
 
