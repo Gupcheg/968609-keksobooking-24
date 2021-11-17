@@ -22,6 +22,8 @@ const roomsCapacity = {
   [FOR_NOBODY]: ['0'],
 };
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
 const typesMinPrice = {
   bungalow: 0,
   flat: 1000,
@@ -41,6 +43,10 @@ const capacityOptions = adForm.querySelectorAll('#capacity option');
 const typesSelect = adForm.querySelector('#type');
 const timeinSelect = adForm.querySelector('#timein');
 const timeoutSelect = adForm.querySelector('#timeout');
+const avatarInput = adForm.querySelector('.ad-form__field input[type=file]');
+const avatarPreview = adForm.querySelector('.ad-form-header__preview img');
+const photoInput = adForm.querySelector('.ad-form__upload input[type=file]');
+const photoPreview = adForm.querySelector('.ad-form__photo');
 
 const changeForm = (isDisabled = true) => {
   if (isDisabled) {
@@ -84,6 +90,17 @@ const changeSelected = () => {
       capacityOption.selected = true;
       return;
     }
+  }
+};
+
+const inputPhotoFromUser = (input, preview) => {
+  const file = input.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((type) => fileName.endsWith(type));
+
+  if (matches) {
+    preview.src = URL.createObjectURL(file);
   }
 };
 
@@ -133,6 +150,17 @@ const onInputPrice = (evt) => {
 
   target.reportValidity();
 };
+
+avatarInput.addEventListener('change', () => inputPhotoFromUser(avatarInput, avatarPreview));
+photoInput.addEventListener('change', () => {
+  const photo = document.createElement('img');
+
+  photo.alt = 'Фотография жилья';
+  photo.width = 70;
+  photo.height = 70;
+  inputPhotoFromUser(photoInput, photo);
+  photoPreview.append(photo);
+});
 
 titleInput.addEventListener('input', onInputTitle);
 priceInput.addEventListener('input', onInputPrice);
