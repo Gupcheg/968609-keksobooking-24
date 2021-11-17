@@ -4,14 +4,13 @@ const ALERT_SHOW_TIME = 5000;
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
-export function swapValue(min, max) {
+function swapValue(min, max) {
   if (min > max) {
     const temp = min;
     min = max;
     max = temp;
   }
 }
-
 
 export function getRandomInt(min, max) {
   min = Math.abs(Math.floor(min));
@@ -22,8 +21,6 @@ export function getRandomInt(min, max) {
   const result = Math.floor(Math.random() * (max - min + 1)) + min;
   return result;
 }
-getRandomInt(0, 100);
-
 
 //Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
 export const getRandomFloat = (min, max, numAfterPoint = 1) => {
@@ -71,12 +68,13 @@ export function getUnicNumbers(count) {
 }
 export function arrayRandElement(arr) {
   const rand = Math.floor(Math.random() * arr.length);
+
   return arr[rand];
 }
 
-
 export const showAlert = (message) => {
   const alertContainer = document.createElement('div');
+
   alertContainer.style.zIndex = 100;
   alertContainer.style.position = 'absolute';
   alertContainer.style.left = 0;
@@ -91,9 +89,7 @@ export const showAlert = (message) => {
 
   document.body.append(alertContainer);
 
-  setTimeout(() => {
-    alertContainer.remove();
-  }, ALERT_SHOW_TIME);
+  setTimeout(() => alertContainer.remove(), ALERT_SHOW_TIME);
 };
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
@@ -102,11 +98,13 @@ const onHideMessage = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
   }
+
   document.body.lastChild.remove();
   document.removeEventListener('click', onHideMessage);
   document.removeEventListener('keydown', onHideMessage);
 
   const errorButton = document.querySelector('.error__button');
+
   if (errorButton) {
     errorButton.removeEventListener('click', onHideMessage);
   }
@@ -119,15 +117,16 @@ const addListenersOnMessage = () => {
 
 export const showSuccessMessage = () => {
   const message = successMessageTemplate.cloneNode(true);
+
   addListenersOnMessage();
   document.body.append(message);
 };
 
 export const showErrorMessage = () => {
   const message = errorMessageTemplate.cloneNode(true);
-  addListenersOnMessage();
-
   const errorButton = message.querySelector('.error__button');
+
+  addListenersOnMessage();
   errorButton.addEventListener('click', onHideMessage);
   document.body.append(message);
 };

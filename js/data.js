@@ -28,7 +28,6 @@ const TITLES = [
   'Приятная квартира',
 ];
 
-
 // Описание помещений
 const DESCRIPTIONS = [
   'Хорошая квартира с приятным видом из окна',
@@ -45,37 +44,32 @@ const DESCRIPTIONS = [
 const ROOMS = ['1', '2', '3', '100'];
 const GUESTS = ['для 1', 'для 2', 'для 3', 'не для'];
 
-
 export const getDescription = (index) => DESCRIPTIONS[index];
 
-
-export function createUser(avatarUrl, description, location) {
-  // console.log(location);
-  return {
-    author: {
-      avatar: avatarUrl,
-    },
-    location: location,
-    offer: {
-      title: arrayRandElement(TITLES),
-      type: HOUSE_TYPES[getRandomInt(0, 4)],
-      address: `${location.lat}, ${location.lng}`,
-      price: getRandomInt(1000, 100000),
-      rooms: ROOMS[getRandomInt(0, 3)],
-      guests: GUESTS[getRandomInt(0, 3)],
-      checkin: CHECK_TIME[getRandomInt(0, CHECK_TIME.length - 1)],
-      checkout: CHECK_TIME[getRandomInt(0, CHECK_TIME.length - 1)],
-      features: getRandomArr(FEATURES),
-      description,
-      photos: getRandomArr(PHOTOS),
-    },
-  };
-}
-
+export const createUser = (avatarUrl, description, location) => ({
+  author: {
+    avatar: avatarUrl,
+  },
+  location: location,
+  offer: {
+    title: arrayRandElement(TITLES),
+    type: HOUSE_TYPES[getRandomInt(0, 4)],
+    address: `${location.lat}, ${location.lng}`,
+    price: getRandomInt(1000, 100000),
+    rooms: ROOMS[getRandomInt(0, 3)],
+    guests: GUESTS[getRandomInt(0, 3)],
+    checkin: CHECK_TIME[getRandomInt(0, CHECK_TIME.length - 1)],
+    checkout: CHECK_TIME[getRandomInt(0, CHECK_TIME.length - 1)],
+    features: getRandomArr(FEATURES),
+    description,
+    photos: getRandomArr(PHOTOS),
+  },
+});
 
 export function getAuthors() {
   const authorIDs = getUnicNumbers(10);
   const authors = [];
+
   authorIDs.map((id) => {
     const location = {
       lat: getRandomFloat(35.65, 35.70, 5),
@@ -87,6 +81,7 @@ export function getAuthors() {
 
     authors.push(author);
   });
+
   return authors;
 }
 

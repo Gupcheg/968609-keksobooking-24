@@ -31,9 +31,7 @@ const mainPinMarker = L.marker({
 
 const adressInput = document.querySelector('#address');
 
-const setAddressInputValue = () => {
-  adressInput.value = `${MAIN_PIN_ADDRESS.lat}, ${MAIN_PIN_ADDRESS.lng}`;
-};
+const setAddressInputValue = () => adressInput.value = `${MAIN_PIN_ADDRESS.lat}, ${MAIN_PIN_ADDRESS.lng}`;
 
 const addMap = () => {
   MAP.on('load', () => {
@@ -85,10 +83,7 @@ const createMarker = (func, point) => {
 const makeMarkers = (cards) => {
   MARKER_GROUP.clearLayers();
 
-  cards
-    .forEach((card) => {
-      createMarker(() => renderCards(card), card.location);
-    });
+  cards.forEach((card) => createMarker(() => renderCards(card), card.location));
 };
 
 const resetMainPin = () => {
@@ -99,9 +94,7 @@ const resetMainPin = () => {
   setAddressInputValue();
 };
 
-const closeOpenedPopup = () => {
-  MAP.closePopup();
-};
+const closeOpenedPopup = () => MAP.closePopup();
 
 export {
   addMap,

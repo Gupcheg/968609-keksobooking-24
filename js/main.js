@@ -28,7 +28,6 @@ changeForm();
 addMap();
 addMainPin();
 
-
 getData((pins) => {
   makeMarkers(filterCards(pins));
   selectFilters(debounce(() => makeMarkers(filterCards(pins)), RERENDER_DELAY));

@@ -18,6 +18,7 @@ const cardElem = (template, element, data, text) => {
 
 const renderCards = (card) => {
   const cardElement = cardTemplate.cloneNode(true);
+
   if (card.author.avatar) {
     cardElement.querySelector('.popup__avatar').src = `${card.author.avatar}`;
   } else {
@@ -34,22 +35,21 @@ const renderCards = (card) => {
 
   if (card.offer.features) {
     const cardFeatures = cardElement.querySelector('.popup__features');
-    cardFeatures.innerHTML = '';
     const features = card.offer.features.map((feature) => {
       const elementLi = document.createElement('li');
       elementLi.classList.add('popup__feature');
       elementLi.classList.add(`popup__feature--${feature}`);
       return elementLi;
     });
+
+    cardFeatures.innerHTML = '';
     cardFeatures.append(...features);
   } else {
     cardElement.querySelector('.popup__features').classList.add('hidden');
   }
 
-
   if (card.offer.photos) {
     const cardPhotos = cardElement.querySelector('.popup__photos');
-    cardPhotos.innerHTML = '';
     const pictures = card.offer.photos.map((photo) => {
       const picture = document.createElement('img');
       picture.src = photo;
@@ -59,6 +59,8 @@ const renderCards = (card) => {
       picture.classList.add('popup__photo');
       return picture;
     });
+
+    cardPhotos.innerHTML = '';
     cardPhotos.append(...pictures);
   } else {
     cardElement.querySelector('.popup__photo').classList.add('hidden');

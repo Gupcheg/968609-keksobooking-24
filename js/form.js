@@ -10,10 +10,6 @@ import {
   showErrorMessage
 } from './util.js';
 
-const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 100;
-const MAX_PRICE = 1000000;
-
 const roomsCapacity = {
   '1': ['1'],
   '2': ['1', '2'],
@@ -22,11 +18,11 @@ const roomsCapacity = {
 };
 
 const typesMinPrice = {
-  'bungalow': '0',
-  'flat': '1000',
-  'hotel': '3000',
-  'house': '5000',
-  'palace': '10000',
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000,
 };
 
 const adForm = document.querySelector('.ad-form');
@@ -93,33 +89,48 @@ const onRoomsNumberChange = () => {
   changeSelected();
 };
 
-titleInput.addEventListener('input', () => {
-  const valueLength = titleInput.value.length;
+const onInputTitle = (evt) => {
+  const {
+    target,
+  } = evt;
+  const {
+    validity,
+    minLength,
+  } = target;
+  const valueLength = target.value.length;
 
-  if (valueLength < MIN_TITLE_LENGTH) {
-    titleInput.setCustomValidity(`Ещё ${MIN_TITLE_LENGTH - valueLength} симв.`);
-  } else if (valueLength >= MAX_TITLE_LENGTH) {
-    titleInput.setCustomValidity(`Достигнута максимальная длина ${MAX_TITLE_LENGTH} симв.`);
+  if (validity.tooShort) {
+    target.setCustomValidity(`Ещё ${minLength - valueLength} симв.`);
   } else {
-    titleInput.setCustomValidity('');
+    target.setCustomValidity('');
   }
 
-  titleInput.reportValidity();
-});
+  target.reportValidity();
+};
 
-priceInput.addEventListener('input', () => {
-  const priceValue = priceInput.value;
+const onInputPrice = (evt) => {
+  const {
+    target,
+  } = evt;
+  const {
+    validity,
+    min,
+    max,
+  } = target;
 
-  if (priceValue > MAX_PRICE) {
-    priceInput.setCustomValidity(`Цена не может превышать ${MAX_PRICE} руб.`);
-  } else if (priceValue < priceInput.min) {
-    priceInput.setCustomValidity(`Цена не может быть меньше ${ priceInput.min } руб.`);
+  if (validity.rangeOverflow) {
+    target.setCustomValidity(`Цена не может превышать ${max} руб.`);
+  } else if (validity.rangeUnderflow) {
+    target.setCustomValidity(`Цена не может быть меньше ${min} руб.`);
   } else {
-    priceInput.setCustomValidity('');
+    target.setCustomValidity('');
   }
 
-  priceInput.reportValidity();
-});
+  target.reportValidity();
+};
+
+titleInput.addEventListener('input', onInputTitle);
+priceInput.addEventListener('input', onInputPrice);
 
 typesSelect.addEventListener('change', () => {
   priceInput.min = typesMinPrice[typesSelect.value];
