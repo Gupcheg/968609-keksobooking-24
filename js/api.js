@@ -23,15 +23,15 @@ const sendData = (onSuccess, onError, body) => {
       body,
     },
   )
-  .then((response) => {
-    if (response.ok) {
-      return onSuccess();
-    }
-    throw new Error(`${response.status} ${response.statusText}`);
-  })
-  .catch(() => {
-    onError();
-  });
+    .then((response) => {
+      if (response.ok) {
+        return onSuccess();
+      }
+      throw new Error(`${response.status} ${response.statusText}`);
+    })
+    .catch(() => {
+      onError();
+    });
 };
 
 export {
