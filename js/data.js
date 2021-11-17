@@ -8,14 +8,14 @@ import {
   getUnicNumbers
 } from './util.js';
 
-const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const houseTypes = ['bungalow', 'flat', 'hotel', 'house', 'palace'];
-const checkTime = ['12:00', '13:00', '14:00'];
-const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const HOUSE_TYPES = ['bungalow', 'flat', 'hotel', 'house', 'palace'];
+const CHECK_TIME = ['12:00', '13:00', '14:00'];
+const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
-const titles = [
+const TITLES = [
   'Сдаётся жильё',
   'Комфортное жилище',
   'Уютное жильё',
@@ -27,7 +27,6 @@ const titles = [
   'Прекрасные апартаменты',
   'Приятная квартира',
 ];
-
 
 // Описание помещений
 const DESCRIPTIONS = [
@@ -45,37 +44,32 @@ const DESCRIPTIONS = [
 const ROOMS = ['1', '2', '3', '100'];
 const GUESTS = ['для 1', 'для 2', 'для 3', 'не для'];
 
-
 export const getDescription = (index) => DESCRIPTIONS[index];
 
-
-export function createUser(avatarUrl, description, location) {
-  // console.log(location);
-  return {
-    author: {
-      avatar: avatarUrl,
-    },
-    location: location,
-    offer: {
-      title: arrayRandElement(titles),
-      type: houseTypes[getRandomInt(0, 4)],
-      address: `${location.lat}, ${location.lng}`,
-      price: getRandomInt(1000, 100000),
-      rooms: ROOMS[getRandomInt(0, 3)],
-      guests: GUESTS[getRandomInt(0, 3)],
-      checkin: checkTime[getRandomInt(0, checkTime.length - 1)],
-      checkout: checkTime[getRandomInt(0, checkTime.length - 1)],
-      features: getRandomArr(features),
-      description,
-      photos: getRandomArr(photos),
-    },
-  };
-}
-
+export const createUser = (avatarUrl, description, location) => ({
+  author: {
+    avatar: avatarUrl,
+  },
+  location: location,
+  offer: {
+    title: arrayRandElement(TITLES),
+    type: HOUSE_TYPES[getRandomInt(0, 4)],
+    address: `${location.lat}, ${location.lng}`,
+    price: getRandomInt(1000, 100000),
+    rooms: ROOMS[getRandomInt(0, 3)],
+    guests: GUESTS[getRandomInt(0, 3)],
+    checkin: CHECK_TIME[getRandomInt(0, CHECK_TIME.length - 1)],
+    checkout: CHECK_TIME[getRandomInt(0, CHECK_TIME.length - 1)],
+    features: getRandomArr(FEATURES),
+    description,
+    photos: getRandomArr(PHOTOS),
+  },
+});
 
 export function getAuthors() {
   const authorIDs = getUnicNumbers(10);
   const authors = [];
+
   authorIDs.map((id) => {
     const location = {
       lat: getRandomFloat(35.65, 35.70, 5),
@@ -87,6 +81,7 @@ export function getAuthors() {
 
     authors.push(author);
   });
+
   return authors;
 }
 

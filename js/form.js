@@ -10,28 +10,29 @@ import {
   showErrorMessage
 } from './util.js';
 
-const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 100;
-const MAX_PRICE = 1000000;
+const FOR_ONE = '1';
+const FOR_TWO = '2';
+const FOR_THREE = '3';
+const FOR_NOBODY = '100';
 
 const roomsCapacity = {
-  '1': ['1'],
-  '2': ['1', '2'],
-  '3': ['1', '2', '3'],
-  '100': ['0'],
+  [FOR_ONE]: ['1'],
+  [FOR_TWO]: ['1', '2'],
+  [FOR_THREE]: ['1', '2', '3'],
+  [FOR_NOBODY]: ['0'],
 };
 
 const typesMinPrice = {
-  'bungalow': '0',
-  'flat': '1000',
-  'hotel': '3000',
-  'house': '5000',
-  'palace': '10000',
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000,
 };
 
 const adForm = document.querySelector('.ad-form');
-const btnReset = adForm.querySelector('.ad-form__reset');
 const mapFilters = document.querySelector('.map__filters');
+const btnReset = adForm.querySelector('.ad-form__reset');
 const activeElements = document.querySelectorAll('.ad-form fieldset, .map__filter, .map__filters fieldset');
 const titleInput = adForm.querySelector('#title');
 const priceInput = adForm.querySelector('#price');
@@ -41,9 +42,23 @@ const typesSelect = adForm.querySelector('#type');
 const timeinSelect = adForm.querySelector('#timein');
 const timeoutSelect = adForm.querySelector('#timeout');
 
+const changeForm = (isDisabled = true) => {
+  if (isDisabled) {
+    adForm.classList.add('ad-form--disabled');
+    mapFilters.classList.add('map__filters--disabled');
+  } else {
+    adForm.classList.remove('ad-form--disabled');
+    mapFilters.classList.remove('map__filters--disabled');
+  }
+
+  activeElements.forEach((activeElement) => {
+    activeElement.disabled = isDisabled;
+  });
+};
+
 const setFormDefault = () => {
-  document.querySelector('.ad-form').reset();
-  document.querySelector('.map__filters').reset();
+  adForm.reset();
+  mapFilters.reset();
   resetMainPin();
   closeOpenedPopup();
 };
@@ -63,21 +78,6 @@ const setFormSubmit = (onSuccess) => {
   });
 };
 
-
-const changeForm = (isDisabled = false) => {
-  if (isDisabled) {
-    adForm.classList.add('ad-form--disabled');
-    mapFilters.classList.add('map__filters--disabled');
-  } else {
-    adForm.classList.remove('ad-form--disabled');
-    mapFilters.classList.remove('map__filters--disabled');
-  }
-
-  activeElements.forEach((activeElement) => {
-    activeElement.disabled = isDisabled;
-  });
-};
-
 const changeSelected = () => {
   for (const capacityOption of capacityOptions) {
     if (!capacityOption.disabled) {
@@ -94,33 +94,48 @@ const onRoomsNumberChange = () => {
   changeSelected();
 };
 
-titleInput.addEventListener('input', () => {
-  const valueLength = titleInput.value.length;
+const onInputTitle = (evt) => {
+  const {
+    target,
+  } = evt;
+  const {
+    validity,
+    minLength,
+  } = target;
+  const valueLength = target.value.length;
 
-  if (valueLength < MIN_TITLE_LENGTH) {
-    titleInput.setCustomValidity(`Ещё ${  MIN_TITLE_LENGTH - valueLength } симв.`);
-  } else if (valueLength >= MAX_TITLE_LENGTH) {
-    titleInput.setCustomValidity(`Достигнута максимальная длина ${ MAX_TITLE_LENGTH } симв.`);
+  if (validity.tooShort) {
+    target.setCustomValidity(`Ещё ${minLength - valueLength} симв.`);
   } else {
-    titleInput.setCustomValidity('');
+    target.setCustomValidity('');
   }
 
-  titleInput.reportValidity();
-});
+  target.reportValidity();
+};
 
-priceInput.addEventListener('input', () => {
-  const priceValue = priceInput.value;
+const onInputPrice = (evt) => {
+  const {
+    target,
+  } = evt;
+  const {
+    validity,
+    min,
+    max,
+  } = target;
 
-  if (priceValue > MAX_PRICE) {
-    priceInput.setCustomValidity(`Цена не может превышать ${ MAX_PRICE } руб.`);
-  } else if (priceValue < priceInput.min) {
-    priceInput.setCustomValidity(`Цена не может быть меньше ${ priceInput.min } руб.`);
+  if (validity.rangeOverflow) {
+    target.setCustomValidity(`Цена не может превышать ${max} руб.`);
+  } else if (validity.rangeUnderflow) {
+    target.setCustomValidity(`Цена не может быть меньше ${min} руб.`);
   } else {
-    priceInput.setCustomValidity('');
+    target.setCustomValidity('');
   }
 
-  priceInput.reportValidity();
-});
+  target.reportValidity();
+};
+
+titleInput.addEventListener('input', onInputTitle);
+priceInput.addEventListener('input', onInputPrice);
 
 typesSelect.addEventListener('change', () => {
   priceInput.min = typesMinPrice[typesSelect.value];
@@ -135,7 +150,6 @@ btnReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   setFormDefault();
 });
-
 
 onRoomsNumberChange();
 
