@@ -10,11 +10,16 @@ import {
   showErrorMessage
 } from './util.js';
 
+const FOR_ONE = '1';
+const FOR_TWO = '2';
+const FOR_THREE = '3';
+const FOR_NOBODY = '100';
+
 const roomsCapacity = {
-  '1': ['1'],
-  '2': ['1', '2'],
-  '3': ['1', '2', '3'],
-  '100': ['0'],
+  [FOR_ONE]: ['1'],
+  [FOR_TWO]: ['1', '2'],
+  [FOR_THREE]: ['1', '2', '3'],
+  [FOR_NOBODY]: ['0'],
 };
 
 const typesMinPrice = {
