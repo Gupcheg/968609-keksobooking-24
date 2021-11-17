@@ -35,13 +35,13 @@ const setAddressInputValue = () => adressInput.value = `${MAIN_PIN_ADDRESS.lat},
 
 const addMap = () => {
   MAP.on('load', () => {
-      changeForm(false);
-      setAddressInputValue();
-    })
-    .setView({
-      lat: MAIN_PIN_ADDRESS.lat,
-      lng: MAIN_PIN_ADDRESS.lng,
-    }, MAP_ZOOM);
+    changeForm(false);
+    setAddressInputValue();
+  })
+  .setView({
+    lat: MAIN_PIN_ADDRESS.lat,
+    lng: MAIN_PIN_ADDRESS.lng,
+  }, MAP_ZOOM);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(MAP);
