@@ -30,8 +30,8 @@ const typesMinPrice = {
 };
 
 const adForm = document.querySelector('.ad-form');
-const btnReset = adForm.querySelector('.ad-form__reset');
 const mapFilters = document.querySelector('.map__filters');
+const btnReset = adForm.querySelector('.ad-form__reset');
 const activeElements = document.querySelectorAll('.ad-form fieldset, .map__filter, .map__filters fieldset');
 const titleInput = adForm.querySelector('#title');
 const priceInput = adForm.querySelector('#price');
@@ -41,9 +41,23 @@ const typesSelect = adForm.querySelector('#type');
 const timeinSelect = adForm.querySelector('#timein');
 const timeoutSelect = adForm.querySelector('#timeout');
 
+const changeForm = (isDisabled = true) => {
+  if (isDisabled) {
+    adForm.classList.add('ad-form--disabled');
+    mapFilters.classList.add('map__filters--disabled');
+  } else {
+    adForm.classList.remove('ad-form--disabled');
+    mapFilters.classList.remove('map__filters--disabled');
+  }
+
+  activeElements.forEach((activeElement) => {
+    activeElement.disabled = isDisabled;
+  });
+};
+
 const setFormDefault = () => {
-  document.querySelector('.ad-form').reset();
-  document.querySelector('.map__filters').reset();
+  adForm.reset();
+  mapFilters.reset();
   resetMainPin();
   closeOpenedPopup();
 };
@@ -60,21 +74,6 @@ const setFormSubmit = (onSuccess) => {
       showErrorMessage,
       new FormData(evt.target),
     );
-  });
-};
-
-
-const changeForm = (isDisabled = false) => {
-  if (isDisabled) {
-    adForm.classList.add('ad-form--disabled');
-    mapFilters.classList.add('map__filters--disabled');
-  } else {
-    adForm.classList.remove('ad-form--disabled');
-    mapFilters.classList.remove('map__filters--disabled');
-  }
-
-  activeElements.forEach((activeElement) => {
-    activeElement.disabled = isDisabled;
   });
 };
 
@@ -98,9 +97,9 @@ titleInput.addEventListener('input', () => {
   const valueLength = titleInput.value.length;
 
   if (valueLength < MIN_TITLE_LENGTH) {
-    titleInput.setCustomValidity(`Ещё ${  MIN_TITLE_LENGTH - valueLength } симв.`);
+    titleInput.setCustomValidity(`Ещё ${MIN_TITLE_LENGTH - valueLength} симв.`);
   } else if (valueLength >= MAX_TITLE_LENGTH) {
-    titleInput.setCustomValidity(`Достигнута максимальная длина ${ MAX_TITLE_LENGTH } симв.`);
+    titleInput.setCustomValidity(`Достигнута максимальная длина ${MAX_TITLE_LENGTH} симв.`);
   } else {
     titleInput.setCustomValidity('');
   }
@@ -112,7 +111,7 @@ priceInput.addEventListener('input', () => {
   const priceValue = priceInput.value;
 
   if (priceValue > MAX_PRICE) {
-    priceInput.setCustomValidity(`Цена не может превышать ${ MAX_PRICE } руб.`);
+    priceInput.setCustomValidity(`Цена не может превышать ${MAX_PRICE} руб.`);
   } else if (priceValue < priceInput.min) {
     priceInput.setCustomValidity(`Цена не может быть меньше ${ priceInput.min } руб.`);
   } else {
@@ -135,7 +134,6 @@ btnReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   setFormDefault();
 });
-
 
 onRoomsNumberChange();
 

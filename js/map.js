@@ -83,9 +83,12 @@ const createMarker = (func, point) => {
 };
 
 const makeMarkers = (cards) => {
-  cards.forEach((card) => {
-    createMarker(() => renderCards(card), card.location);
-  });
+  MARKER_GROUP.clearLayers();
+
+  cards
+    .forEach((card) => {
+      createMarker(() => renderCards(card), card.location);
+    });
 };
 
 const resetMainPin = () => {

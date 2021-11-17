@@ -98,19 +98,23 @@ export const showAlert = (message) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const hideMessage = (evt) => {
+const onHideMessage = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
   }
   document.body.lastChild.remove();
-  document.removeEventListener('click', hideMessage);
-  document.removeEventListener('keydown', hideMessage);
-  document.querySelector('.error__button').removeEventListener('click', hideMessage);
+  document.removeEventListener('click', onHideMessage);
+  document.removeEventListener('keydown', onHideMessage);
+
+  const errorButton = document.querySelector('.error__button');
+  if (errorButton) {
+    errorButton.removeEventListener('click', onHideMessage);
+  }
 };
 
 const addListenersOnMessage = () => {
-  document.addEventListener('click', hideMessage);
-  document.addEventListener('keydown', hideMessage);
+  document.addEventListener('click', onHideMessage);
+  document.addEventListener('keydown', onHideMessage);
 };
 
 export const showSuccessMessage = () => {
@@ -124,6 +128,6 @@ export const showErrorMessage = () => {
   addListenersOnMessage();
 
   const errorButton = message.querySelector('.error__button');
-  errorButton.addEventListener('click', hideMessage);
+  errorButton.addEventListener('click', onHideMessage);
   document.body.append(message);
 };

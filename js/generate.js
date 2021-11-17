@@ -4,7 +4,7 @@ const offerHouseTypes = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
-  palace: 'Особняк',
+  palace: 'Дворец',
   hotel: 'Отель',
 };
 
@@ -30,8 +30,22 @@ const renderCards = (card) => {
   cardElem(cardElement, '.popup__type', card.offer.type, offerHouseTypes[card.offer.type]);
   cardElem(cardElement, '.popup__text--capacity', card.offer.rooms && card.offer.guests, `${card.offer.rooms} комнаты ${card.offer.guests} гостей`);
   cardElem(cardElement, '.popup__text--time', card.offer.checkin && card.offer.checkout, `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`);
-  cardElem(cardElement, '.popup__features', card.offer.features, `${card.offer.features}`);
   cardElem(cardElement, '.popup__description', card.offer.description, `${card.offer.description}`);
+
+  if (card.offer.features) {
+    const cardFeatures = cardElement.querySelector('.popup__features');
+    cardFeatures.innerHTML = '';
+    const features = card.offer.features.map((feature) => {
+      const elementLi = document.createElement('li');
+      elementLi.classList.add('popup__feature');
+      elementLi.classList.add(`popup__feature--${feature}`);
+      return elementLi;
+    });
+    cardFeatures.append(...features);
+  } else {
+    cardElement.querySelector('.popup__features').classList.add('hidden');
+  }
+
 
   if (card.offer.photos) {
     const cardPhotos = cardElement.querySelector('.popup__photos');
