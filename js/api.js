@@ -18,20 +18,20 @@ const getData = (onSuccess, onError) => {
 
 const sendData = (onSuccess, onError, body) => {
   fetch(
-      SEND_DATA_ADDRESS, {
-        method: 'POST',
-        body,
+    SEND_DATA_ADDRESS, {
+      method: 'POST',
+      body,
       },
     )
-    .then((response) => {
-      if (response.ok) {
-        return onSuccess();
-      }
-      throw new Error(`${response.status} ${response.statusText}`);
-    })
-    .catch(() => {
-      onError();
-    });
+  .then((response) => {
+    if (response.ok) {
+      return onSuccess();
+    }
+    throw new Error(`${response.status} ${response.statusText}`);
+  })
+  .catch(() => {
+    onError();
+  });
 };
 
 export {
