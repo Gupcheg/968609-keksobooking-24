@@ -1,6 +1,9 @@
 /* eslint-disable indent */
+const GET_DATA_ADDRESS = 'https://24.javascript.pages.academy/keksobooking/data';
+const SEND_DATA_ADDRESS = 'https://24.javascript.pages.academy/keksobooking';
+
 const getData = (onSuccess, onError) => {
-  fetch('https://24.javascript.pages.academy/keksobooking/data')
+  fetch(GET_DATA_ADDRESS)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -15,7 +18,7 @@ const getData = (onSuccess, onError) => {
 
 const sendData = (onSuccess, onError, body) => {
   fetch(
-      'https://24.javascript.pages.academy/keksobooking', {
+      SEND_DATA_ADDRESS, {
         method: 'POST',
         body,
       },

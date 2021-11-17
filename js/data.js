@@ -8,14 +8,14 @@ import {
   getUnicNumbers
 } from './util.js';
 
-const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const houseTypes = ['bungalow', 'flat', 'hotel', 'house', 'palace'];
-const checkTime = ['12:00', '13:00', '14:00'];
-const photos = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const HOUSE_TYPES = ['bungalow', 'flat', 'hotel', 'house', 'palace'];
+const CHECK_TIME = ['12:00', '13:00', '14:00'];
+const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
-const titles = [
+const TITLES = [
   'Сдаётся жильё',
   'Комфортное жилище',
   'Уютное жильё',
@@ -57,17 +57,17 @@ export function createUser(avatarUrl, description, location) {
     },
     location: location,
     offer: {
-      title: arrayRandElement(titles),
-      type: houseTypes[getRandomInt(0, 4)],
+      title: arrayRandElement(TITLES),
+      type: HOUSE_TYPES[getRandomInt(0, 4)],
       address: `${location.lat}, ${location.lng}`,
       price: getRandomInt(1000, 100000),
       rooms: ROOMS[getRandomInt(0, 3)],
       guests: GUESTS[getRandomInt(0, 3)],
-      checkin: checkTime[getRandomInt(0, checkTime.length - 1)],
-      checkout: checkTime[getRandomInt(0, checkTime.length - 1)],
-      features: getRandomArr(features),
+      checkin: CHECK_TIME[getRandomInt(0, CHECK_TIME.length - 1)],
+      checkout: CHECK_TIME[getRandomInt(0, CHECK_TIME.length - 1)],
+      features: getRandomArr(FEATURES),
       description,
-      photos: getRandomArr(photos),
+      photos: getRandomArr(PHOTOS),
     },
   };
 }

@@ -65,6 +65,7 @@ const selectFilters = (cb) => {
   housingFeatures.forEach((feature) => {
     feature.addEventListener('change', cb);
   });
+
   mapFilters.addEventListener('reset', cb);
 };
 
