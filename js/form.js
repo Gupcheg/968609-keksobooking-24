@@ -15,6 +15,8 @@ const FOR_TWO = '2';
 const FOR_THREE = '3';
 const FOR_NOBODY = '100';
 
+const ROOM_PHOTO_SIZE = 70;
+
 const roomsCapacity = {
   [FOR_ONE]: ['1'],
   [FOR_TWO]: ['1', '2'],
@@ -61,12 +63,28 @@ const changeForm = (isDisabled = true) => {
     activeElement.disabled = isDisabled;
   });
 };
+const resetCapacityRooms = () => {
+  capacityOptions.forEach((capacityOption) => {
+    capacityOption.disabled = false;
+
+    if (!capacityOption.selected) {
+      capacityOption.disabled = true;
+    }
+  });
+};
+
+const resetImagesForm = () => {
+  photoPreview.innerHTML = '';
+  avatarPreview.src = `${document.location.href}/img/muffin-grey.svg`;
+};
 
 const setFormDefault = () => {
   adForm.reset();
   mapFilters.reset();
   resetMainPin();
   closeOpenedPopup();
+  resetCapacityRooms();
+  resetImagesForm();
 };
 
 const setFormSubmit = (onSuccess) => {
@@ -104,7 +122,7 @@ const inputPhotoFromUser = (input, preview) => {
   }
 };
 
-const onRoomsNumberChange = () => {
+const onChangeRoomsAmount = () => {
   capacityOptions.forEach((capacityOption) => {
     capacityOption.disabled = !roomsCapacity[roomsNumberSelect.value].includes(capacityOption.value);
   });
@@ -156,8 +174,8 @@ photoInput.addEventListener('change', () => {
   const photo = document.createElement('img');
 
   photo.alt = 'Фотография жилья';
-  photo.width = 70;
-  photo.height = 70;
+  photo.width = ROOM_PHOTO_SIZE;
+  photo.height = ROOM_PHOTO_SIZE;
   inputPhotoFromUser(photoInput, photo);
   photoPreview.append(photo);
 });
@@ -170,7 +188,7 @@ typesSelect.addEventListener('change', () => {
   priceInput.placeholder = priceInput.min;
 });
 
-roomsNumberSelect.addEventListener('change', onRoomsNumberChange);
+roomsNumberSelect.addEventListener('change', onChangeRoomsAmount);
 timeinSelect.addEventListener('change', () => timeoutSelect.value = timeinSelect.value);
 timeoutSelect.addEventListener('change', () => timeinSelect.value = timeoutSelect.value);
 
@@ -178,8 +196,7 @@ btnReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   setFormDefault();
 });
-
-onRoomsNumberChange();
+setFormDefault();
 
 export {
   changeForm,

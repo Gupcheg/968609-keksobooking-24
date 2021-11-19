@@ -6,6 +6,10 @@ import {
   renderCards
 } from './generate.js';
 
+const ICON_SIZE = 40;
+const ICON_ANCHOR_X = 20;
+const ICON_ANCHOR_Y = 40;
+
 const MAP = L.map('map-canvas');
 const MARKER_GROUP = L.layerGroup().addTo(MAP);
 const MAP_ZOOM = 13.5;
@@ -64,8 +68,8 @@ const createMarker = (func, point) => {
 
   const icon = L.icon({
     iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [ICON_SIZE, ICON_SIZE],
+    iconAnchor: [ICON_ANCHOR_X, ICON_ANCHOR_Y],
   });
 
   const marker = L.marker({

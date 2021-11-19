@@ -1,3 +1,6 @@
+const ROOM_PHOTO_MAP_WIDTH = 45;
+const ROOM_PHOTO_MAP_HEIGHT = 40;
+
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const offerHouseTypes = {
@@ -54,8 +57,8 @@ const renderCards = (card) => {
       const picture = document.createElement('img');
       picture.src = photo;
       picture.alt = 'Фото жилья';
-      picture.width = '45';
-      picture.height = '40';
+      picture.width = ROOM_PHOTO_MAP_WIDTH;
+      picture.height = ROOM_PHOTO_MAP_HEIGHT;
       picture.classList.add('popup__photo');
       return picture;
     });
