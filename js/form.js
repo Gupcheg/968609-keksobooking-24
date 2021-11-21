@@ -78,6 +78,11 @@ const resetImagesForm = () => {
   avatarPreview.src = `${document.location.href}/img/muffin-grey.svg`;
 };
 
+const updatePriceInput = () => {
+  priceInput.min = typesMinPrice[typesSelect.value];
+  priceInput.placeholder = priceInput.min;
+};
+
 const setFormDefault = () => {
   adForm.reset();
   mapFilters.reset();
@@ -85,6 +90,7 @@ const setFormDefault = () => {
   closeOpenedPopup();
   resetCapacityRooms();
   resetImagesForm();
+  updatePriceInput();
 };
 
 const setFormSubmit = (onSuccess) => {
@@ -183,10 +189,7 @@ photoInput.addEventListener('change', () => {
 titleInput.addEventListener('input', onInputTitle);
 priceInput.addEventListener('input', onInputPrice);
 
-typesSelect.addEventListener('change', () => {
-  priceInput.min = typesMinPrice[typesSelect.value];
-  priceInput.placeholder = priceInput.min;
-});
+typesSelect.addEventListener('change', updatePriceInput);
 
 roomsNumberSelect.addEventListener('change', onChangeRoomsAmount);
 timeinSelect.addEventListener('change', () => timeoutSelect.value = timeinSelect.value);
